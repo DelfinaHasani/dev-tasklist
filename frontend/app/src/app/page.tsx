@@ -1,23 +1,22 @@
-async function getBookings() {
-  const res = await fetch('http://host.docker.internal:5000/api/bookings', { cache: 'no-store', mode: 'no-cors' })
- 
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
- 
-  return res.json()
-}
+"use client";
 
-const Home: React.FC = async () => {
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import BookingList from '../../components/BookingList'; 
+import BookingDetail from '../../components/BookingDetail';  
+import NewBookingPage from './new-booking/page'; // Import the new booking page
 
-  const bookings = await getBookings()
 
+const Page: React.FC = () => {
   return (
-    <div>
-      <h1>Current booking count: {bookings.length}</h1>
-
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<BookingList />} />
+        <Route path="/booking/:id" element={<BookingDetail />} />
+        <Route path="/new-booking" element={<NewBookingPage />} />  {/* Add this route */}
+      </Routes>
+    </Router>
   );
 };
 
-export default Home;
+export default Page;

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise'); // Using promise-based API
+const cors = require('cors');
 
 const app = express();
 const port = 5000;
@@ -15,6 +16,7 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+app.use(cors()); // Move this up before parsing JSON
 app.use(bodyParser.json());
 
 // API endpoint to fetch bookings
@@ -40,6 +42,11 @@ app.post('/api/bookings', async (req, res) => {
     console.error('Error inserting booking:', error);
     res.status(500).send('Internal Server Error');
   }
+});
+
+// Route for the root path
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend service!');
 });
 
 app.listen(port, () => {

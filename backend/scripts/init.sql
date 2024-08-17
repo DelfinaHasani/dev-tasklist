@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    service VARCHAR(255),
+    service VARCHAR(255), 
     doctor_name VARCHAR(255),
     start_time VARCHAR(255),
     end_time VARCHAR(255),
